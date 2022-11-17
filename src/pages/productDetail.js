@@ -1,8 +1,10 @@
 export const productDetail = (rootEl, props) => {
   const selectedOption = [];
-  fetch(`http://localhost:3000/products/${props.id}`)
+  // fetch(`http://localhost:3000/products/${props.id}`)
+  fetch("https://my-json-server.typicode.com/malgamlee/ShoppingMall_SPA/db")
     .then((response) => response.json())
     .then((result) => {
+      result = result.products;
       let prdtOptions = result.productOptions.map((prdt, idx) => {
         let prdtname = `${result.name} ${prdt.name}`;
         if (prdt.price > 0)

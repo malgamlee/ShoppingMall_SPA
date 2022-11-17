@@ -7,7 +7,10 @@ export const shoppingCart = (rootEl, props) => {
   };
   const products = JSON.parse(localStorage.getItem("products_cart"));
   products.map((prdt) => {
-    fetch(`http://localhost:3000/products/${prdt.productId}`)
+    fetch(
+      `https://my-json-server.typicode.com/malgamlee/ShoppingMall_SPA/products/${prdt.productId}`
+    )
+      // fetch(`http://localhost:3000/products/${prdt.productId}`)
       .then((response) => response.json())
       .then((result) => {
         let cartUl = document.getElementById("Cart__List");
