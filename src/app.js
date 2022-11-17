@@ -5,7 +5,6 @@ import { shoppingCart } from "./pages/shoppingCart.js";
 export const app = (rootEl) => {
   rootEl.innerHTML = `
     <div>
-      <div class="header">Sample app</div>
       <div id="page"></div>
     </div>
   `;
