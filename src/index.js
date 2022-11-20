@@ -1,8 +1,3 @@
-import { app } from "./app.js";
+import App from "./App.js";
 
-const appEl = document.getElementById("page");
-
-app(appEl);
-window.addEventListener("popstate", () => {
-  app(appEl);
-});
+new App({ $target: document.querySelector(".App") });
