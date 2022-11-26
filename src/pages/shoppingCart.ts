@@ -1,12 +1,23 @@
-export const shoppingCart = (rootEl, props) => {
+export const shoppingCart = (
+  rootEl: HTMLElement | null,
+  props: any,
+  app: (rootEl: HTMLElement | null) => void
+) => {
+  if (localStorage.getItem("products_cart") === "[]") {
+    alert("장바구니가 비어 있습니다.");
+    window.history.pushState(null, "", "/");
+    app(rootEl);
+    return;
+  }
+
   let cartTotalPrice = 0;
-  const updatePrice = (price) => {
-    document.getElementsByClassName(
-      "Cart__totalPrice"
-    )[0].innerText = `총 상품가격 ${price.toLocaleString("ko-KR")}원`;
+  const updatePrice = (price: number) => {
+    (
+      document.getElementsByClassName("Cart__totalPrice")[0] as HTMLElement
+    ).innerText = `총 상품가격 ${price.toLocaleString("ko-KR")}원`;
   };
-  const products = JSON.parse(localStorage.getItem("products_cart"));
-  products.map((prdt) => {
+  const products = JSON.parse(localStorage.getItem("products_cart")!);
+  products.map((prdt: any) => {
     fetch(
       `https://my-json-server.typicode.com/malgamlee/ShoppingMall_SPA/products/${prdt.productId}`
     )
@@ -17,7 +28,7 @@ export const shoppingCart = (rootEl, props) => {
         let cartItem = document.createElement("li");
         cartItem.classList.add("Cart__item");
         let option = result.productOptions.filter(
-          (el) => +el.id === +prdt.optionId
+          (el: any) => +el.id === +prdt.optionId
         );
         cartItem.innerHTML = `<img
         src="${result.imageUrl}"
@@ -29,12 +40,12 @@ export const shoppingCart = (rootEl, props) => {
           +prdt.quantity
         ).toLocaleString("ko-KR")}원 </div>
       </div>`;
-        cartUl.append(cartItem);
+        cartUl!.append(cartItem);
         cartTotalPrice += (+result.price + +option[0].price) * +prdt.quantity;
         updatePrice(cartTotalPrice);
       });
   });
-  rootEl.innerHTML = `
+  rootEl!.innerHTML = `
   <div class="CartPage">
   <h1>장바구니</h1>
   <div class="Cart">
